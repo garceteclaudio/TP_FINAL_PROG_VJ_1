@@ -13,7 +13,7 @@ public class MovCamara : MonoBehaviour
 
     void Start()
     {
-        offset = new Vector3(0, 4, -5);
+        offset = new Vector3(0, 3, -3);
         Cursor.lockState = CursorLockMode.Locked; // Bloquear el cursor en el centro
         Cursor.visible = false;
     }
