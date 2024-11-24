@@ -67,4 +67,12 @@ public class SoldierMovement : MonoBehaviour
     {
         rotationStrategy = newStrategy;
     }
+    //destruye al jugador si hace collision con un objeto con un tag "Enemy"
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
