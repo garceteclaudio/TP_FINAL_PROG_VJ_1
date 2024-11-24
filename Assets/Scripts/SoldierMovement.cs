@@ -24,16 +24,15 @@ public class SoldierMovement : MonoBehaviour
         walkingStrategy = new WalkingMovement(controller);
         rotationStrategy = new RotationMovement();
         jumpCommand = new JumpCommand(controller);
-        shootCommand = new ShootCommand(bulletPrefab, transform);
+        shootCommand = new ShootCommand(bulletPrefab, transform, 90);
+
     }
 
     void Update()
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-
         moveDirection = transform.right * moveX + transform.forward * moveZ;
-
         animator.SetFloat("Speed", moveDirection.magnitude);
 
         if (moveDirection.magnitude >= 0.1f)
@@ -56,6 +55,12 @@ public class SoldierMovement : MonoBehaviour
         {
             shootCommand.Execute();
         }
+
+        //Ejecutar el comando para recargar balas.
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            shootCommand.Reload();
+        }
     }
 
     public void SetMovementStrategy(IMovementStrategy newStrategy)
@@ -67,12 +72,23 @@ public class SoldierMovement : MonoBehaviour
     {
         rotationStrategy = newStrategy;
     }
-    //destruye al jugador si hace collision con un objeto con un tag "Enemy"
+
+    //Eliminar al jugador al colisionar con un enemigo.
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    //Habilitar la recolección de balas al estar cerca de la caja.
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("AmmoBox") && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("SOLDADO: -Estas balas me servirán de momento...");
+            shootCommand.AddAmmo(30);
         }
     }
 }
