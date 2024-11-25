@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: ffc64c30a316f594a898c1051e770056
   - enabled: 0
-    path: Assets/Scenes/BORRAR A.unity
+    path: Assets/Scenes/Escena1 (ERROR).unity
     guid: ebb50276c4c9fcf44a2d424ac7443731
   - enabled: 1
     path: Assets/Scenes/Escena1 (CIUDAD).unity
