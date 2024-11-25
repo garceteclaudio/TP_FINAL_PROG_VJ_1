@@ -6,13 +6,16 @@ public class EndingManager : MonoBehaviour
 {
     public GameObject object1;
     public GameObject object2;
+    public GameObject object3;
     public Transform position1;
     public Transform position2;
+    public Transform position3;
 
     private void Start()
     {
         object1.SetActive(false);
         object2.SetActive(false);
+        object3.SetActive(false);
     }
 
     public void CheckEndGameConditions(int score, bool isZoneActive)
@@ -29,9 +32,11 @@ public class EndingManager : MonoBehaviour
         //Métodos para mostrar el helicóptero y la cuerda en el mapa.
         object1.SetActive(true);
         object2.SetActive(true);
+        object3.SetActive(true);
 
         object1.transform.position = position1.position;
         object2.transform.position = position2.position;
+        object3.transform.position = position2.position;
 
         Debug.Log("CONDUCTOR: (por radio) -Aquí Bravo Seis a Sombra Nueve, hemos llegado a la zona de extracción. Cambio.");
     }

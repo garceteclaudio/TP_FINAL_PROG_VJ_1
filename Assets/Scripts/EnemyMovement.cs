@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         //Asignar como objetivo a un objeto que tenga la etiqueta "Player".
-        GameObject player = GameObject.FindWithTag("Player");
+        GameObject player = GameObject.FindWithTag("Soldier");
 
         if (player != null)
         {

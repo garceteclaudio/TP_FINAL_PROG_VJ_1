@@ -38,7 +38,7 @@ public class CoinBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Verifica si el objeto que colisiona tiene la etiqueta "Player"
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Soldier"))
         {
             coinsCollected++; // Incrementa el contador
             Debug.Log("Monedas recolectadas: " + coinsCollected); // Muestra el total en la consola
