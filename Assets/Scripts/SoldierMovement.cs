@@ -73,15 +73,6 @@ public class SoldierMovement : MonoBehaviour
         rotationStrategy = newStrategy;
     }
 
-    //Eliminar al jugador al colisionar con un enemigo.
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-        }
-    }
-
     //Habilitar la recolección de balas al estar cerca de la caja.
     private void OnTriggerStay(Collider other)
     {

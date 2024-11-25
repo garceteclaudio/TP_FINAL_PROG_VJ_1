@@ -5,19 +5,48 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Transform target;
-    public Vector3 offset = new Vector3(5, -1, 2);
+    public Vector3 offset = new Vector3(0, 3, -3);
+    public float mouseSensitivity = 400f;
+    private float xRotation;
+    private float yRotation;
+    public Transform orientation;
 
-    void LateUpdate()
+    void Start()
     {
-        //Calcular la posición de la cámara para ubicarla detrás del jugador.
-        Vector3 rotatedOffset = target.rotation * offset;
-        Vector3 desiredPosition = target.position + rotatedOffset;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
-        //Suavizar el movimiento de rotación de la cámara hacia la posición deseada.
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, 0.125f);
-        transform.position = smoothedPosition;
+    void Update()
+    {
+        if (target != null)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        //Asegurarse de que la cámara mire siempre hacia la espalda del soldado.
-        transform.LookAt(target.position + Vector3.up * 1.5f);
+            yRotation += mouseX;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (target != null)
+        {
+            transform.position = target.position + orientation.TransformDirection(offset);
+        }
+
+        if (target == null)
+        {
+            Debug.LogError("Target no está asignado. Asegúrate de que la referencia está configurada en el Inspector.");
+        }
+        if (orientation == null)
+        {
+            Debug.LogError("Orientation no está asignado. Asegúrate de que la referencia está configurada en el Inspector.");
+        }
     }
 }
