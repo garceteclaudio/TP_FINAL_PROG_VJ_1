@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Escena3 (BOSS).unity
     guid: f2f7a35473cf1254d966ce58a0705e9d
+  - enabled: 1
+    path: Assets/Scenes/Victoria.unity
+    guid: aff1ab79aa09b6042ab88241262de8de
   m_configObjects: {}
