@@ -8,10 +8,16 @@ public class ComDisparar : ICommand
     private float bulletSpeed = 10f;
     private Transform soldierTransform;
 
-    public ComDisparar(GameObject bulletPrefab, Transform soldierTransform)
+    private AudioSource audioSource;
+    private AudioClip shotSound;
+
+    public ComDisparar(GameObject bulletPrefab, Transform soldierTransform, AudioSource audioSource, AudioClip shotSound)
     {
         this.bulletPrefab = bulletPrefab;
         this.soldierTransform = soldierTransform;
+
+        this.audioSource = audioSource;
+        this.shotSound = shotSound;
     }
 
     public void Execute()
@@ -23,5 +29,8 @@ public class ComDisparar : ICommand
         GameObject bullet = Object.Instantiate(bulletPrefab, shootPosition, soldierTransform.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.velocity = soldierTransform.forward * bulletSpeed;
+
+        //Reproducir sonido de disparo
+        audioSource.PlayOneShot(shotSound);
     }
 }

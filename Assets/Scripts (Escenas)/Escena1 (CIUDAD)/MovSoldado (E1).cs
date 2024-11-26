@@ -17,14 +17,18 @@ public class MovSoldado : MonoBehaviour
     private ComDisparar shootCommand;
     public GameObject bulletPrefab;
 
+    public AudioClip shotSound;
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         walkingStrategy = new MovCaminar(controller);
         rotationStrategy = new MovRotar();
         jumpCommand = new ComSaltar(controller);
-        shootCommand = new ComDisparar(bulletPrefab, transform);
+        shootCommand = new ComDisparar(bulletPrefab, transform, audioSource, shotSound);
     }
 
     void Update()
