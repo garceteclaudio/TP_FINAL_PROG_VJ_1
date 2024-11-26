@@ -5,63 +5,63 @@ using UnityEngine.AI;
 
 public class BossMovement : MonoBehaviour
 {
-    public float speed = 0.5f;
-    public float rangoAtaque = 3f;
-    public float gravedad = -9.81f;
-    public Animator animator;
+    public float speed = 0.5f; //Velocidad de movimiento del Boss
+    public float rangoAtaque = 3f; //Rango de ataque
+    public float gravedad = -9.81f; //Gravedad para el Boss
+    public Animator animator; //Componente animator para las animaciones
 
-    private NavMeshAgent agente;
-    private Transform player;
-    private Coroutine attackCoroutine;
+    private NavMeshAgent agente; //NavMeshAgent para que el Boss se desplace por el mapa
+    private Transform player; //Posicion del Jugador
+    private Coroutine attackCoroutine; //Corrutina para controlar el ataque
 
     void Start()
     {
-        agente = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player").transform;
-        animator = GetComponent<Animator>();
+        agente = GetComponent<NavMeshAgent>(); //Llama al componente de NavMeshAgent
+        player = GameObject.FindWithTag("Player").transform; //Busca la posion del jugador mediante su tag 
+        animator = GetComponent<Animator>(); //Lllama al componente animator para la animacion
     }
 
     void Update()
     {
-        if (agente.isOnNavMesh && player != null)
+        if (agente.isOnNavMesh && player != null) //Verifica que el agente esté en la maya de navegacion y si existe el jugador
         {
-            agente.destination = player.position;
-            animator.SetBool("isWalking", true);
+            agente.destination = player.position; //Establece la posicion del jugador hacia donde se dirigirá el Boss
+            animator.SetBool("isWalking", true); //Activa la animacion del Boss donde está caminando
 
-            agente.Move(Vector3.down * gravedad * Time.deltaTime);
+            agente.Move(Vector3.down * gravedad * Time.deltaTime); //Aplica la gravedad
 
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            Vector3 direction = (player.position - transform.position).normalized; //Calcula la direccion hacia el jugador
+            Quaternion targetRotation = Quaternion.LookRotation(direction); //Clcula la rotacion hacia el jugador
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); //Suaviza la rotacion
 
-            float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
+            float distanciaAlPlayer = Vector3.Distance(transform.position, player.position); //Calcula la distancia al jugador
 
-            if (distanciaAlPlayer <= rangoAtaque)
+            if (distanciaAlPlayer <= rangoAtaque) //Verifica que el jugador este en el rango de ataque
             {
-                if (attackCoroutine == null)
+                if (attackCoroutine == null) //Inicia la corrutina si no está activa
                 {
                     attackCoroutine = StartCoroutine(AttackPlayer());
                 }
             }
-            else
+            else //Detiene la corrutina si el jugador no esta en el rango de ataque
             {
                 if (attackCoroutine != null)
                 {
                     StopCoroutine(attackCoroutine);
                     attackCoroutine = null;
-                    animator.SetBool("isAttacking", false);
-                    animator.SetBool("isWalking", true);
+                    animator.SetBool("isAttacking", false); //Desactiva la animacion de atacar
+                    animator.SetBool("isWalking", true); //Vuelve a activar la animacion de caminar
                 }
             }
         }
     }
 
-    IEnumerator AttackPlayer()
+    IEnumerator AttackPlayer() //Corrutina de ataque al jugador
     {
-        while (true)
+        while (true) //Bucle para atacar constantemente
         {
-            animator.SetBool("isAttacking", true);
-            yield return new WaitForSeconds(1f);
+            animator.SetBool("isAttacking", true); //Activa la animacion de ataque
+            yield return new WaitForSeconds(1f); //Intervalo de 1 segundo entre ataque
         }
     }
 }
