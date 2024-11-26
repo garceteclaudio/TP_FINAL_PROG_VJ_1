@@ -12,32 +12,30 @@ public class BulletDestroyBoss : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, duration);  // Destruir la bala después de un tiempo.
+        Destroy(gameObject, duration);
     }
 
     void Update()
     {
-        // Mover la bala hacia adelante.
+
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)  // Asegúrate de usar Collider y no Collision
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Colisión detectada con: " + other.name); // Depuración de colisiones
 
-        if (other.CompareTag("Boss"))  // Verificar si la colisión fue con el Boss
+        if (other.CompareTag("Boss"))
         {
             contadorImpactos++;
-            Debug.Log("Impactado por bala. Contador: " + contadorImpactos);
+            Debug.Log("El boss ha sido herido: " + contadorImpactos);
 
-            // Llamar al método RecibirImpacto del Boss
             Boss boss = other.GetComponent<Boss>();
             if (boss != null)
             {
                 boss.RecibirImpacto();
             }
 
-            Destroy(gameObject);  // Destruir la bala
+            Destroy(gameObject);
         }
     }
 }
