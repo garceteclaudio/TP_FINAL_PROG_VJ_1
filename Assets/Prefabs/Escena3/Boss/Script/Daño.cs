@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DañoContinuo : MonoBehaviour
 {
-    public float CantidadDaño = 10f; // Cantidad de daño que el Boss inflige
-    public float intervaloDaño = 1f; // Intervalo de tiempo entre cada daño
+    public float CantidadDaño = 10f;
+    public float intervaloDaño = 1f;
 
-    private Coroutine damageCoroutine; // Referencia a la corrutina de daño
+    private Coroutine damageCoroutine;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,24 +34,8 @@ public class DañoContinuo : MonoBehaviour
         while (true)
         {
             playerSalud.RecibirDaño(CantidadDaño);
-            Debug.Log("El jugador recibió daño: " + CantidadDaño);
-            yield return new WaitForSeconds(intervaloDaño); // Daño cada intervalo especificado
+            yield return new WaitForSeconds(intervaloDaño);
         }
     }
 }
-
-/*using UnityEngine;
-
-public class Daño : MonoBehaviour
-{
-    public float CantidadDaño;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && other.GetComponent<SaludPlayer>())
-        {
-            other.GetComponent<SaludPlayer>().RecibirDaño(CantidadDaño);
-        }
-    }
-}*/
 
