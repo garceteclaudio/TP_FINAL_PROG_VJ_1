@@ -17,14 +17,22 @@ public class SoldierMovement : MonoBehaviour
     private ShootCommand shootCommand;
     public GameObject bulletPrefab;
 
+    // Referencias a los sonidos
+    public AudioClip shotSound;
+    public AudioClip emptySound;
+    public AudioClip reloadSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         walkingStrategy = new WalkingMovement(controller);
         rotationStrategy = new RotationMovement();
         jumpCommand = new JumpCommand(controller);
-        shootCommand = new ShootCommand(bulletPrefab, transform, 90);
+        shootCommand = new ShootCommand(bulletPrefab, transform, 90, audioSource, shotSound, emptySound, reloadSound);
 
     }
 

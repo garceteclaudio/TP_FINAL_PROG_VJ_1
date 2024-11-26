@@ -7,37 +7,52 @@ public class ShootCommand : ICommand
     private GameObject bulletPrefab;
     private float bulletSpeed = 10f;
     private Transform soldierTransform;
-
     private int maxAmmo = 30; // Tamaño del cargador
     private int currentAmmo;  // Balas actuales en el cargador
     private int totalAmmo;    // Balas restantes en el inventario
 
-    public ShootCommand(GameObject bulletPrefab, Transform soldierTransform, int startingAmmo)
+    private AudioSource audioSource;
+    private AudioClip shotSound;
+    private AudioClip emptySound;
+    private AudioClip reloadSound;
+
+    public ShootCommand(GameObject bulletPrefab, Transform soldierTransform, int startingAmmo, AudioSource audioSource, AudioClip shotSound, AudioClip emptySound, AudioClip reloadSound)
     {
         this.bulletPrefab = bulletPrefab;
         this.soldierTransform = soldierTransform;
         this.currentAmmo = maxAmmo;  // El cargador inicia lleno
         this.totalAmmo = startingAmmo; // Inventario inicial
+        this.audioSource = audioSource;
+        this.shotSound = shotSound;
+        this.emptySound = emptySound;
+        this.reloadSound = reloadSound;
     }
 
     public void Execute()
     {
         if (currentAmmo > 0)
         {
-            //Calcular la posición de disparo en torno en la posición del soldado
+            // Calcular la posición de disparo en torno a la posición del soldado
             Vector3 shootPosition = soldierTransform.position + soldierTransform.forward + new Vector3(0, 2f, 0);
 
-            //Instanciar la bala y asignarle un componente Rigidbody para su movimiento
+            // Instanciar la bala y asignarle un componente Rigidbody para su movimiento
             GameObject bullet = Object.Instantiate(bulletPrefab, shootPosition, soldierTransform.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = soldierTransform.forward * bulletSpeed;
+
             currentAmmo--;
             Debug.Log($"AYUDA: Balas restantes en el cargador: {currentAmmo}. Balas totales en el inventario: {totalAmmo}.");
+
+            // Reproducir sonido de disparo
+            audioSource.PlayOneShot(shotSound);
         }
         else
         {
             Debug.Log("SOLDADO: -¡Mierda! ¡Cargador vacío, necesito recargar balas!");
-            Debug.Log("AYUDA: Presiona la tecla R para recargar munciciones.");
+            Debug.Log("AYUDA: Presiona la tecla R para recargar municiones.");
+
+            // Reproducir sonido de cargador vacío
+            audioSource.PlayOneShot(emptySound);
         }
     }
 
@@ -47,9 +62,14 @@ public class ShootCommand : ICommand
         {
             int neededAmmo = maxAmmo - currentAmmo; // Cantidad necesaria para llenar el cargador
             int ammoToReload = Mathf.Min(neededAmmo, totalAmmo); // Cuánto podemos recargar
+
             currentAmmo += ammoToReload;
             totalAmmo -= ammoToReload;
+
             Debug.Log($"AYUDA: Cargador recargado. Balas en el cargador: {currentAmmo}. Balas restantes en el inventario: {totalAmmo}.");
+
+            // Reproducir sonido de recarga
+            audioSource.PlayOneShot(reloadSound);
         }
         else
         {
@@ -63,7 +83,7 @@ public class ShootCommand : ICommand
         totalAmmo += amount;
         Debug.Log($"AYUDA: Has recogido {amount} balas. Ahora tienes {totalAmmo} en el inventario.");
     }
-    
+
     public int GetCurrentAmmo()
     {
         return currentAmmo;
