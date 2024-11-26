@@ -33,7 +33,7 @@ public class BulletDestroyBoss : MonoBehaviour
             Boss boss = other.GetComponent<Boss>();
             if (boss != null)
             {
-                boss.RecibirImpacto();
+                boss.RecibirImpacto(true);
             }
 
             Destroy(gameObject);

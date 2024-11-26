@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour {
         bossTransform.position = new Vector3(bossTransform.position.x, 0f, bossTransform.position.z);
         animator = GetComponent<Animator>();
     } 
-    public void RecibirImpacto() 
+    public void RecibirImpacto(bool isShot) 
     { 
         impactosRecibidos++;
         Debug.Log("Impactos recibidos por el Boss: " + impactosRecibidos);
