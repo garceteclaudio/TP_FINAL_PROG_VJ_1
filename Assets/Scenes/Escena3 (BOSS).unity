@@ -7161,6 +7161,10 @@ PrefabInstance:
       propertyPath: maxImpactos
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5922321428653773527, guid: ab5e645013571094993871100e1e4dee, type: 3}
+      propertyPath: tiempoDestruccion
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7610767689506772499, guid: ab5e645013571094993871100e1e4dee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.2144866

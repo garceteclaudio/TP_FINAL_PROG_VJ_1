@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour { 
    
     public int maxImpactos;
@@ -20,6 +21,7 @@ public class Boss : MonoBehaviour {
         Debug.Log("Impactos recibidos por el Boss: " + impactosRecibidos);
         if (impactosRecibidos >= maxImpactos) { animator.SetTrigger("isDead");
             StartCoroutine(DestruirDespuesDeTiempo(tiempoDestruccion));
+          
         } 
     } 
     IEnumerator DestruirDespuesDeTiempo(float tiempo) 
@@ -27,7 +29,8 @@ public class Boss : MonoBehaviour {
         Debug.Log("Iniciando corrutina para destruir el Boss después de " + tiempo + " segundos.");
         yield return new WaitForSeconds(tiempo);
         Debug.Log("Derrotamos al Boss.");
-        Destroy(gameObject); 
+        Destroy(gameObject);
+        SceneManager.LoadScene("Victoria");
     } 
 }
 
