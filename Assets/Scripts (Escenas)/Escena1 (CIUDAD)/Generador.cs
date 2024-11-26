@@ -12,6 +12,7 @@ public class Generador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //un invoke repeating que llama a un metodo despues de 2 segundos y inicia un bucle de 5 seg
         InvokeRepeating("GenerarEnemigos", 2f, 5f);
     }
 
@@ -19,7 +20,9 @@ public class Generador : MonoBehaviour
     {
         if (cantidadGenerada < cantidadMaxima)
         {
+            // Calcula la posición de spawn sumando un vector al transform actual (puedes personalizar este offset)
             Vector3 spawnPos = transform.position + new Vector3(0, 0, 0);
+            // Instancia un nuevo enemigo en la posición calculada con rotación 
             Instantiate(enemigo, spawnPos, Quaternion.identity);
             cantidadGenerada++; // Incrementar el contador
         }
