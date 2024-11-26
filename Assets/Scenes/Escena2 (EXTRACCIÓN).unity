@@ -11868,6 +11868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endingManager: {fileID: 896674764}
+  sceneBossFight: Escena3 (BOSS)
 --- !u!114 &896674766
 MonoBehaviour:
   m_ObjectHideFlags: 0

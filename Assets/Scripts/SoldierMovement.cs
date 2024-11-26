@@ -17,7 +17,6 @@ public class SoldierMovement : MonoBehaviour
     private ShootCommand shootCommand;
     public GameObject bulletPrefab;
 
-    // Referencias a los sonidos
     public AudioClip shotSound;
     public AudioClip emptySound;
     public AudioClip reloadSound;

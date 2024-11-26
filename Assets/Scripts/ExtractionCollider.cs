@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExtractionCollider : MonoBehaviour
 {
     public EndingManager endingManager;
     private bool hasEntered = false;
+    public string sceneBossFight;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,9 +18,9 @@ public class ExtractionCollider : MonoBehaviour
 
             if (endingManager.object1.activeSelf && endingManager.object2.activeSelf)
             {
-                Time.timeScale = 0f;
                 Debug.Log("CONDUCTOR: (por radio) -Pájaro grande, aquí Bravo Seis, estamos saliendo.");
                 Debug.Log("CONDUCTOR: (al soldado) -¡Rápido soldado! ¡NOS LARGAMOS!");
+                SceneManager.LoadScene(sceneBossFight);
             }
         }
     }
@@ -27,7 +29,7 @@ public class ExtractionCollider : MonoBehaviour
     {
         if (other.CompareTag("Soldier"))
         {
-            hasEntered = false; // Permitir que se ejecute de nuevo al salir
+            hasEntered = false;
             Debug.Log("SOLDADO: -Creo que será mejor liberar la zona...");
         }
     }
