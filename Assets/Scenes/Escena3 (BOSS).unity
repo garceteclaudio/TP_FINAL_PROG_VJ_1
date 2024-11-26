@@ -1328,6 +1328,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8732d563a511d834e823ac895b8a4004, type: 3}
+--- !u!4 &355925362 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6804330450620096771, guid: 7a0dd05de5e079f4b9afa1835182c9a8, type: 3}
+  m_PrefabInstance: {fileID: 425073993186033354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &359014632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3816,8 +3821,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8c40037d9532e498a8b1c05c515170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 5, y: -1, z: 2}
+  target: {fileID: 355925362}
+  offset: {x: 0, y: 3, z: -3}
+  mouseSensitivity: 400
+  orientation: {fileID: 355925362}
 --- !u!4 &966181981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4619486662236612, guid: e05ee61d6dad0e54eb51d1c8ec3becc6, type: 3}
