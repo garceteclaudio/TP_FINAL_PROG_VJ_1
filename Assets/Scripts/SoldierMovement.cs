@@ -44,12 +44,11 @@ public class SoldierMovement : MonoBehaviour
 
         if (moveDirection.magnitude >= 0.1f)
         {
-            //Mover y rotar al soldado en base a las estrategias.
+
             walkingStrategy.Move(transform, moveDirection, moveSpeed);
             rotationStrategy.Move(transform, moveDirection, rotationSpeed);
         }
 
-        //Ejecutar el comando de salto del soldado.
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jumpCommand.Jump();
@@ -57,13 +56,11 @@ public class SoldierMovement : MonoBehaviour
 
         jumpCommand.Execute();
 
-        //Manejar el comando de disparo del soldado.
         if (Input.GetMouseButtonDown(0))
         {
             shootCommand.Execute();
         }
 
-        //Ejecutar el comando para recargar balas.
         if (Input.GetKeyDown(KeyCode.R))
         {
             shootCommand.Reload();
@@ -80,7 +77,6 @@ public class SoldierMovement : MonoBehaviour
         rotationStrategy = newStrategy;
     }
 
-    //Habilitar la recolección de balas al estar cerca de la caja.
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("AmmoBox") && Input.GetKeyDown(KeyCode.E))

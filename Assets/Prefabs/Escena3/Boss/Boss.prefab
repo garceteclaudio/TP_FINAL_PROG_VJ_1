@@ -197,10 +197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f309da9979a3343bfbf1de9b1d57ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxImpactos: 10
+  maxImpactos: 25
   animator: {fileID: 0}
   tiempoDestruccion: 5
-  escenaVictoria: Victoria
+  impactosRecibidos: 0
 --- !u!54 &8686927443459734353
 Rigidbody:
   m_ObjectHideFlags: 0

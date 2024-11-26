@@ -1,38 +1,44 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Boss : MonoBehaviour { 
-   
+
+public class Boss : MonoBehaviour
+{
     public int maxImpactos;
-    public Animator animator; 
+    public Animator animator;
     public float tiempoDestruccion;
 
-    private int impactosRecibidos;
-    void Start() 
-    { 
+    public int impactosRecibidos;
+
+    void Start()
+    {
         Transform bossTransform = this.transform;
         bossTransform.position = new Vector3(bossTransform.position.x, 0f, bossTransform.position.z);
         animator = GetComponent<Animator>();
-    } 
-    public void RecibirImpacto(bool isShot) 
-    { 
+    }
+
+    public void RecibirImpacto(bool isShot)
+    {
         impactosRecibidos++;
         Debug.Log("Impactos recibidos por el Boss: " + impactosRecibidos);
-        if (impactosRecibidos >= maxImpactos) { animator.SetTrigger("isDead");
+
+        if (impactosRecibidos >= maxImpactos)
+        {
+            animator.SetTrigger("isDead");
             StartCoroutine(DestruirDespuesDeTiempo(tiempoDestruccion));
-          
-        } 
-    } 
-    IEnumerator DestruirDespuesDeTiempo(float tiempo) 
-    { 
+        }
+    }
+
+    IEnumerator DestruirDespuesDeTiempo(float tiempo)
+    {
         Debug.Log("Iniciando corrutina para destruir el Boss después de " + tiempo + " segundos.");
         yield return new WaitForSeconds(tiempo);
         Debug.Log("Derrotamos al Boss.");
         Destroy(gameObject);
         SceneManager.LoadScene("Victoria");
-    } 
+    }
 }
+
 
 
 

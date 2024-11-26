@@ -10,7 +10,6 @@ public class SaludPlayer : MonoBehaviour
 
     public Image BarraSalud;
     public Text TextoSalud;
-    // Update is called once per frame
     void Update()
     {
         ActualizarInterfaz();

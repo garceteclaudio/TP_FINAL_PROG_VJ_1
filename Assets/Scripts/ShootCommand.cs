@@ -7,9 +7,9 @@ public class ShootCommand : ICommand
     private GameObject bulletPrefab;
     private float bulletSpeed = 10f;
     private Transform soldierTransform;
-    private int maxAmmo = 30; //Tamaño del cargador
-    private int currentAmmo;  //Balas actuales en el cargador
-    private int totalAmmo;    //Balas restantes en el inventario
+    private int maxAmmo = 30;
+    private int currentAmmo;
+    private int totalAmmo;
 
     private AudioSource audioSource;
     private AudioClip shotSound;
@@ -32,10 +32,7 @@ public class ShootCommand : ICommand
     {
         if (currentAmmo > 0)
         {
-            //Calcular la posición de disparo en torno a la posición del soldado
             Vector3 shootPosition = soldierTransform.position + soldierTransform.forward + new Vector3(0, 2f, 0);
-
-            //Instanciar la bala y asignarle un componente Rigidbody para su movimiento
             GameObject bullet = Object.Instantiate(bulletPrefab, shootPosition, soldierTransform.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = soldierTransform.forward * bulletSpeed;
@@ -43,7 +40,6 @@ public class ShootCommand : ICommand
             currentAmmo--;
             Debug.Log($"AYUDA: Balas restantes en el cargador: {currentAmmo}. Balas totales en el inventario: {totalAmmo}.");
 
-            //Reproducir sonido de disparo
             audioSource.PlayOneShot(shotSound);
         }
         else
@@ -51,7 +47,6 @@ public class ShootCommand : ICommand
             Debug.Log("SOLDADO: -¡Mierda! ¡Cargador vacío, necesito recargar balas!");
             Debug.Log("AYUDA: Presiona la tecla R para recargar municiones.");
 
-            //Reproducir sonido de cargador vacío
             audioSource.PlayOneShot(emptySound);
         }
     }
@@ -68,7 +63,6 @@ public class ShootCommand : ICommand
 
             Debug.Log($"AYUDA: Cargador recargado. Balas en el cargador: {currentAmmo}. Balas restantes en el inventario: {totalAmmo}.");
 
-            //Reproducir sonido de recarga
             audioSource.PlayOneShot(reloadSound);
         }
         else
@@ -80,7 +74,6 @@ public class ShootCommand : ICommand
 
     public void AddAmmo(int amount)
     {
-        //Agregar balas desde la caja de municiones
         totalAmmo += amount;
         Debug.Log($"AYUDA: Has recogido {amount} balas. Ahora tienes {totalAmmo} en el inventario.");
     }
